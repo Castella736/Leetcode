@@ -1,17 +1,18 @@
 class Solution:
     def pivotIndex(self, nums: List[int]) -> int:
-        # Length of nums
-        n = len(nums);
-        # Record sum of each side.
-        # l_sum[k] = sum to k-th index(not included) from the left.
-        # r_sum[k] = sum to k-th index(not included) from the right.
-        l_sum, r_sum = {0:0}, {n-1:0};
-        for i in range(1,n):
-            l_sum[i] = l_sum[i-1] + nums[i-1];
-            r_sum[n-1-i] = r_sum[n-i] + nums[n-i];
+        # Pre-sum two sides.
+        # At i-th stage.
+        # l_sum = sum to the i-th number (not included) from the left.
+        # r_sum = symmetrically.
+        # Initialize so that the comparison start from index 0.
+        l_sum, r_sum = 0, sum(nums);
         
-        # Check if pivot exists.
-        for i in range(n):
-            if l_sum[i] == r_sum[i]:
+        # Main comparison.
+        for i, num in enumerate(nums):
+            r_sum -= num;
+            if l_sum == r_sum:
                 return i;
+            l_sum += num;
+        
+        
         return -1;
