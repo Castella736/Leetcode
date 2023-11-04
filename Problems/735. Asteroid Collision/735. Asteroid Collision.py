@@ -22,15 +22,4 @@ class Solution:
                     track.append(newAsteroid);
                     break;
                     
-        
         return track;
-    
-    # This function returns the larger one.
-    def asteroidExplode(self, left: int, right: int) -> str:
-        merge = left+right;
-        if merge == 0:
-            return "both";
-        elif merge > 0:
-            return "left";
-        else:
-            return "right";
