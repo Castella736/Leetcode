@@ -39,7 +39,7 @@ class Solution:
                 while stack[p] != "[":
                     p -= 1;
                 p -= 1;
-                while p>=0 and stack[p].isnumeric():
+                while p>=0 and stack[p].isdigit():
                     p -= 1;
                 
                 # Decode the segment and replace the encrypted with the decoded.
