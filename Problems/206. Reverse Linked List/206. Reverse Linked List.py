@@ -6,20 +6,13 @@
         
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        # Exclude None.
-        if not head:
-            return head;
-        
-        # Use an extra pre-pointer to reverse the order.
-        curNode, nextNode = head, head.next;
-        head.next = None;
-        
-        while nextNode:
-            # Advance to the next node.
-            preNode = curNode;
+        prevNode = None;
+        curNode = head;
+        while curNode:
+            nextNode = curNode.next; # Store next.
+            curNode.next = prevNode; # Reverse the link.
+            # Advance to the next.
+            prevNode = curNode;
             curNode = nextNode;
-            nextNode = nextNode.next;
-            # Reverse the link of "cur" in this loop.
-            curNode.next = preNode;
         
-        return curNode;
+        return prevNode;
