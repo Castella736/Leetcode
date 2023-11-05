@@ -3,20 +3,29 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+        
 class Solution:
     def pairSum(self, head: Optional[ListNode]) -> int:
-        # Traverse the list and turn it to array.
-        curNode = head;
-        record = [];
-        while curNode:
-            record += [curNode.val];
-            curNode = curNode.next;
+        # Fast-slow two pointers and reverse half list while traversing.
+        # Initializing condition
+        slow, fast = head, head.next;
+        nextNode = slow.next;
+        head.next = None;
         
-        # Find maximum twin sum in the array
+        while fast.next and fast.next.next:
+            # Advance the fast pointer.
+            fast = fast.next.next;
+            # Advance the slow pointer and reverse the link.
+            preNode = slow;
+            slow = nextNode;
+            nextNode = slow.next;
+            slow.next = preNode;
+        
+        # Start search maximum twin sum from the middle.
+        fast = nextNode;
         res = 0;
-        n = len(record);
-        for i in range(n//2):
-            if record[i]+record[n-1-i] > res:
-                res = record[i]+record[n-1-i];
-            
+        while fast:
+            res = max(res, fast.val+slow.val);
+            fast, slow = fast.next, slow.next;
+        
         return res;
