@@ -1,23 +1,16 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        table = {"(","[","{"};
+        table = {
+            "(":")",
+            "[":"]",
+            "{":"}"};
         seen = [];
 
         for symbol in s:
             if symbol in table:
                 seen.append(symbol);
             else:
-                if seen:
-                    match seen.pop():
-                        case "(":
-                            check = ")";
-                        case "[":
-                            check = "]";
-                        case "{":
-                            check = "}";
-                    if symbol!=check:
-                        return False;
-                else:
-                    return False;
+                if not seen: return False;
+                if symbol!=table[seen.pop()]: return False;
         
         return not bool(seen);
